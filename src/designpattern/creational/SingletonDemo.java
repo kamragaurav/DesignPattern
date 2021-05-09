@@ -9,7 +9,10 @@ import java.util.concurrent.Executors;
 class Singleton {
 
     public static volatile Singleton INSTANCE;
-    private Singleton(){}
+    private Singleton(){
+        if(INSTANCE!=null)
+            throw new UnsupportedOperationException("Can not create constructor");
+    }
 
     public static Singleton getInstance(){
         if(INSTANCE==null){
@@ -26,6 +29,8 @@ public class SingletonDemo {
        // Class aClass = Class.forName("designpattern.creational.Singleton");
         //Constructor<Singleton>[] constructor = aClass.getDeclaredConstructors();
         Object[] parameters = new Object[3];
+        Singleton instance = Singleton.getInstance();
+        print("s1",instance);
         Singleton instance2;
         Constructor constructors =
                 Singleton.class.getDeclaredConstructors()[0];
@@ -34,9 +39,9 @@ public class SingletonDemo {
             // Below code will destroy the singleton pattern
             constructors.setAccessible(true);
             instance2 = (Singleton) constructors.newInstance(null);
-            Singleton instance = Singleton.getInstance();
+
             print("s",instance2);
-        print("s1",instance);
+
           //  break;
         //}
 
