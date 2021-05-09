@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 class Singleton implements Cloneable{
     public static Singleton INSTANCE;
     private Singleton(){}
-    public static Singleton getInstance(){
+    public static synchronized Singleton getInstance(){
         if(INSTANCE==null){
             INSTANCE = new Singleton();
         }
