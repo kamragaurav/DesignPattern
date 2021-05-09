@@ -1,9 +1,12 @@
 package designpattern.creational;
 class Singleton{
-    private static final Singleton INSTANCE = new Singleton();
+    private static Singleton INSTANCE;
     private Singleton(){}
     public static Singleton getInstance(){
-        return INSTANCE;
+       if(INSTANCE==null){
+           INSTANCE=new Singleton();
+       }
+       return INSTANCE;
     }
 }
 public class SingletonDemo {
