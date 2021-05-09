@@ -11,7 +11,7 @@ class Singleton implements Cloneable{
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+       throw new CloneNotSupportedException("Can not create clone of this class");
     }
 }
 public class SingletonDemo {
