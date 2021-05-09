@@ -1,9 +1,17 @@
 package designpattern.creational;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 class Singleton implements Cloneable{
-    public static final Singleton INSTANCE;
+    public static Singleton INSTANCE;
     private Singleton(){}
-    static {
-        INSTANCE = new Singleton();
+    public static Singleton getInstance(){
+        if(INSTANCE==null){
+            INSTANCE = new Singleton();
+        }
+        return INSTANCE;
     }
 
     @Override
@@ -12,13 +20,20 @@ class Singleton implements Cloneable{
     }
 }
 public class SingletonDemo {
-    public static void main(String[] args) {
-        Singleton s1 = Singleton.INSTANCE;
-        Singleton s2 =  Singleton.INSTANCE;
+    static  void useSingleton(){
+        Singleton s1 = Singleton.getInstance();
         print("s1",s1);
-        print("s2",s2);
-        /*Singleton s3 = (Singleton) s2.clone();
-        print("s3",s3);*/
+    }
+    public static void main(String[] args) {
+        //Singleton s1 = Singleton.INSTANCE;
+        //Singleton s2 =  Singleton.INSTANCE;
+        ExecutorService service = Executors.newFixedThreadPool(4);
+        service.submit(SingletonDemo::useSingleton);
+        service.submit(SingletonDemo::useSingleton);
+        service.submit(SingletonDemo::useSingleton);
+        service.shutdown();
+        //print("s1",s1);
+        //print("s2",s2);
     }
 
     public static void print(String name, Object obj){
