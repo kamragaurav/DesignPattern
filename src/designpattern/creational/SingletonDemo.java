@@ -4,22 +4,16 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-class Singleton implements Cloneable{
-    public static volatile Singleton INSTANCE;
+class Singleton {
+
     private Singleton(){}
-    public static Singleton getInstance(){
-        if(INSTANCE==null){
-            synchronized (Singleton.class) {
-                if(INSTANCE==null)
-                INSTANCE = new Singleton();
-            }
-        }
-        return INSTANCE;
+
+    private static class InstanceHolder{
+        public static volatile Singleton INSTANCE=new Singleton();
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-       throw new CloneNotSupportedException("Can not create clone of this class");
+    public static Singleton getInstance(){
+        return InstanceHolder.INSTANCE;
     }
 }
 public class SingletonDemo {
@@ -28,15 +22,11 @@ public class SingletonDemo {
         print("s1",s1);
     }
     public static void main(String[] args) {
-        //Singleton s1 = Singleton.INSTANCE;
-        //Singleton s2 =  Singleton.INSTANCE;
         ExecutorService service = Executors.newFixedThreadPool(4);
         service.submit(SingletonDemo::useSingleton);
         service.submit(SingletonDemo::useSingleton);
         service.submit(SingletonDemo::useSingleton);
         service.shutdown();
-        //print("s1",s1);
-        //print("s2",s2);
     }
 
     public static void print(String name, Object obj){
