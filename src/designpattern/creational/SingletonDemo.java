@@ -1,54 +1,27 @@
 package designpattern.creational;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.*;
 
-class Singleton {
-
-    public static volatile Singleton INSTANCE;
-    private Singleton(){
-        if(INSTANCE!=null)
-            throw new UnsupportedOperationException("Can not create constructor");
-    }
-
+class Singleton implements Serializable{
+    private static Singleton INSTANCE;
+    private Singleton(){}
     public static Singleton getInstance(){
-        if(INSTANCE==null){
-            INSTANCE = new Singleton();
-        }
-        return INSTANCE;
+       if(INSTANCE==null){
+           INSTANCE=new Singleton();
+       }
+       return INSTANCE;
     }
-
-
 }
 public class SingletonDemo {
-
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InvocationTargetException, InstantiationException {
-       // Class aClass = Class.forName("designpattern.creational.Singleton");
-        //Constructor<Singleton>[] constructor = aClass.getDeclaredConstructors();
-        Object[] parameters = new Object[3];
-        Singleton instance = Singleton.getInstance();
-        print("s1",instance);
-        Singleton instance2;
-        Constructor constructors =
-                Singleton.class.getDeclaredConstructors()[0];
-        //for (Constructor constructor : constructors)
-        //{
-            // Below code will destroy the singleton pattern
-            constructors.setAccessible(true);
-            instance2 = (Singleton) constructors.newInstance(null);
-
-            print("s",instance2);
-
-          //  break;
-        //}
-
-
-
-
-
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Singleton s1 = Singleton.getInstance();
+        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("s1.ser"));
+        outputStream.writeObject(s1);
+        InputStream in;
+        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("s1.ser"));
+        Singleton s2 = (Singleton) inputStream.readObject();
+        print("s1",s1);
+        print("s2",s2);
     }
 
     public static void print(String name, Object obj){
