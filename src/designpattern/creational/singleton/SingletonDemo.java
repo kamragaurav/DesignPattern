@@ -1,10 +1,10 @@
-package designpattern.creational;
+package designpattern.creational.singleton;
 
 import java.io.*;
 
 
 public class SingletonDemo {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args)  {
         SingletonEnum s1 = SingletonEnum.INSTANCE;
 
         SingletonEnum s2 = SingletonEnum.INSTANCE;
