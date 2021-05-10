@@ -11,6 +11,11 @@ class Singleton implements Serializable{
        }
        return INSTANCE;
     }
+
+    protected Object readResolve(){
+        return INSTANCE;
+    }
+
 }
 public class SingletonDemo {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
