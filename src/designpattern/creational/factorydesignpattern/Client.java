@@ -1,4 +1,4 @@
-package designpattern.creational.factory;
+package designpattern.creational.factorydesignpattern;
 
 public class Client {
     public static void main(String[] args) {

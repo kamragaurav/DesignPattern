@@ -1,4 +1,4 @@
-package designpattern.creational.factory;
+package designpattern.creational.factorydesignpattern;
 
 public class LaptopFactory {
     public static Laptop getLaptop(LaptopType laptopType){

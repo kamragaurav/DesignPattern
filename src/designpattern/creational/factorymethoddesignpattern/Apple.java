@@ -1,6 +1,6 @@
-package designpattern.creational.factory;
+package designpattern.creational.factorymethoddesignpattern;
 
-public class Apple extends Laptop{
+public class Apple extends Laptop {
     private String ram;
     private String processor;
 
@@ -13,4 +13,5 @@ public class Apple extends Laptop{
     public String getConfiguration() {
         return "Mac Laptop ram is : "+this.ram+" and processor is : "+this.processor;
     }
+
 }
